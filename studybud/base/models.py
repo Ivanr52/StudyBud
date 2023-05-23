@@ -14,7 +14,7 @@ class Room(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True) #blank means when you run the save() method, the form can be empty
-    # participants = 
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     updated = models.DateTimeField(auto_now=True) #EVERY time the save() method is called, save a timestamp
     created = models.DateTimeField(auto_now_add=True) #Only takes a timestamp when you FIRST create or save this instance. 
 
@@ -30,7 +30,10 @@ class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE) #on_delete: When the parent (Room) is deleted, delete (cascade) all Messages in that room
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True) 
-    created = models.DateTimeField(auto_now_add=True) 
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated', '-created'] 
 
     def __str__(self):
         return self.body[0:50] #return first 50 characters
