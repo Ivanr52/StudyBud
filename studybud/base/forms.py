@@ -6,3 +6,4 @@ class RoomForm(ModelForm):
     class Meta:
         model = Room
         fields = '__all__' #Gets all editable fields from Room model
+        exclude = ['host', 'participants']
