@@ -20,5 +20,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('base.urls')) #Let base.urls handle any routing starts with an empty string
+    path('', include('base.urls')), #Let base.urls handle any routing starts with an empty string
+    path('api/', include('base.api.urls'))
 ]
